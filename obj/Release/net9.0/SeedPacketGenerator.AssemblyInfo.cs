@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SeedPacketGenerator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0c8fc8c95bc5e2157b0f63d4fba12324a5e749d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d54a3fef201ea9bfb965e9778d596eb714f64587")]
 [assembly: System.Reflection.AssemblyProductAttribute("SeedPacketGenerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SeedPacketGenerator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

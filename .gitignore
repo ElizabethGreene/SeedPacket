@@ -1,5 +1,6 @@
 /.vs
-/SeedPacketGenerator/bin/Debug
-/SeedPacketGenerator/bin/x86/Debug
-/SeedPacketGenerator/obj/Debug
-/SeedPacketGenerator/obj/x86/Debug
+/bin/Debug
+/bin/x86/Debug
+/obj/Debug
+/obj/x86/Debug
+SeedPacket.7z

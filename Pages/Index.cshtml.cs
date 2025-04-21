@@ -115,12 +115,12 @@ namespace SeedPacketGenerator.Pages
             leftTabPath.AddLine(x - tabWidth, y + mainHeight, x, y + mainHeight); // Bottom edge
             gfx.DrawPath(solidPen, leftTabPath);
 
-            // 5. Right Tab (0.5" x 4")
-            var rightTabPath = new XGraphicsPath();
-            rightTabPath.AddLine(x + mainWidth + mainWidth, y, x + mainWidth + mainWidth + tabWidth, y); // Top edge
-            rightTabPath.AddLine(x + mainWidth + mainWidth + tabWidth, y, x + mainWidth + mainWidth + tabWidth, y + mainHeight); // Right edge
-            rightTabPath.AddLine(x + mainWidth + mainWidth + tabWidth, y + mainHeight, x + mainWidth + mainWidth, y + mainHeight); // Bottom edge
-            gfx.DrawPath(solidPen, rightTabPath);
+            // // 5. Right Tab (0.5" x 4")
+            // var rightTabPath = new XGraphicsPath();
+            // rightTabPath.AddLine(x + mainWidth + mainWidth, y, x + mainWidth + mainWidth + tabWidth, y); // Top edge
+            // rightTabPath.AddLine(x + mainWidth + mainWidth + tabWidth, y, x + mainWidth + mainWidth + tabWidth, y + mainHeight); // Right edge
+            // rightTabPath.AddLine(x + mainWidth + mainWidth + tabWidth, y + mainHeight, x + mainWidth + mainWidth, y + mainHeight); // Bottom edge
+            // gfx.DrawPath(solidPen, rightTabPath);
 
             // 6. Bottom Tab (3" x 0.5")
             var bottomTabPath = new XGraphicsPath();

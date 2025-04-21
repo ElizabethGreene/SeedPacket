@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedPacketGenerator", "SeedPacketGenerator.csproj", "{B33258D3-F560-1EA9-FA9C-B9B41D9DB737}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B33258D3-F560-1EA9-FA9C-B9B41D9DB737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33258D3-F560-1EA9-FA9C-B9B41D9DB737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33258D3-F560-1EA9-FA9C-B9B41D9DB737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33258D3-F560-1EA9-FA9C-B9B41D9DB737}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C2A1A3F-6685-4BB7-81C1-92B0DC17AB61}
+	EndGlobalSection
+EndGlobal

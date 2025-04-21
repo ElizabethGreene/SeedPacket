@@ -1,0 +1,163 @@
+@page
+@model SeedPacketGenerator.Pages.IndexModel
+@{
+    ViewData["Title"] = "Seed Packet Generator";
+    // Ensure SeedPacket is not null
+    var seedPacket = Model.SeedPacket ?? new SeedPacketGenerator.Models.SeedPacket();
+}
+
+<h1>Seed Packet Generator</h1>
+
+<!-- Instructions -->
+<div style="margin-bottom: 20px;">
+    <p><strong>Instructions:</strong> Make your packet using the tool below, then click "Generate PDF". Print the PDF, Cut on the solid lines, fold on the dotted lines, and glue the tabs. Viola! Instant seed packet!</p>
+    <!-- Placeholder for GIF -->
+    <img src="/images/instructions.gif" alt="Instructions for cutting, folding, and gluing" style="max-width: 100%; height: auto; display: none;" />
+</div>
+
+<form method="post" id="seedPacketForm">
+    <div class="form-group">
+        <label for="SeedName">Seed Name</label>
+        <input type="text" class="form-control" asp-for="SeedPacket.SeedName" id="SeedName" required maxlength="18"/>
+    </div>
+    <div class="form-group">
+        <label for="Date">Date</label>
+        <input type="date" class="form-control" asp-for="SeedPacket.Date" id="Date" required />
+    </div>
+    <div class="form-group">
+        <label>Background Image</label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <!-- None option -->
+            <div>
+                <input type="radio" name="SeedPacket.BackgroundImage" id="bg-none" value="" checked="@(seedPacket.BackgroundImage == "")" />
+                <label for="bg-none">
+                    None
+                </label>
+            </div>
+            <!-- Background 1 -->
+            <div>
+                <input type="radio" name="SeedPacket.BackgroundImage" id="bg-1" value="1.png" checked="@(seedPacket.BackgroundImage == "1.png")" />
+                <label for="bg-1">
+                    <img src="/images/1.png" alt="Farm Scene 1" style="width: 75px; height: 100px; border: 2px solid @(seedPacket.BackgroundImage == "1.png" ? "#000" : "#ccc");" />
+                </label>
+            </div>
+            <!-- Background 2 -->
+            <div>
+                <input type="radio" name="SeedPacket.BackgroundImage" id="bg-2" value="2.png" checked="@(seedPacket.BackgroundImage == "2.png")" />
+                <label for="bg-2">
+                    <img src="/images/2.png" alt="Farm Scene 2" style="width: 75px; height: 100px; border: 2px solid @(seedPacket.BackgroundImage == "2.png" ? "#000" : "#ccc");" />
+                </label>
+            </div>
+            <!-- Background 3 -->
+            <div>
+                <input type="radio" name="SeedPacket.BackgroundImage" id="bg-3" value="3.png" checked="@(seedPacket.BackgroundImage == "3.png")" />
+                <label for="bg-3">
+                    <img src="/images/3.png" alt="Farm Scene 3" style="width: 75px; height: 100px; border: 2px solid @(seedPacket.BackgroundImage == "3.png" ? "#000" : "#ccc");" />
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Notes">Notes (Optional, max 200 characters)</label>
+        <textarea class="form-control" asp-for="SeedPacket.Notes" id="Notes" rows="4" maxlength="200"></textarea>
+        <small id="notesCounter" class="form-text text-muted">200 characters remaining</small>
+    </div>
+    <button type="submit" asp-page-handler="GeneratePdf" class="btn btn-success mt-2">Generate PDF</button>
+</form>
+
+<h2>Live Preview</h2>
+<div style="display: flex; gap: 20px; margin-top: 20px;">
+    <!-- Front Panel -->
+    <div id="preview-front" style="position: relative; width: 3in; height: 4in; padding: 10px; border: 1px dashed black; background-size: cover; background-position: center;">
+        <!-- Semi-transparent overlay to ensure text readability (only shown when a background is selected) -->
+        <div id="overlay-front" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.6); display: none;"></div>
+        <!-- Text content -->
+        <div style="position: relative; z-index: 1;">
+            <h3 id="previewSeedName">Seed Name</h3>
+            <p><strong>Date:</strong> <span id="previewDate">@DateTime.Now.ToShortDateString()</span></p>
+        </div>
+    </div>
+    <!-- Back Panel -->
+    <div id="preview-back" style="position: relative; width: 3in; height: 4in; padding: 10px; border: 1px dashed black;">
+        <!-- Text content -->
+        <div style="position: relative; z-index: 1;">
+            <p id="notesSection" style="word-wrap: break-word; max-width: 100%; display: none;"><strong>Notes:</strong> <span id="previewNotes"></span></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Get form inputs and preview elements
+        const seedNameInput = document.getElementById('SeedName');
+        const dateInput = document.getElementById('Date');
+        const backgroundImageInputs = document.querySelectorAll('input[name="SeedPacket.BackgroundImage"]');
+        const notesInput = document.getElementById('Notes');
+        const notesCounter = document.getElementById('notesCounter');
+        const notesSection = document.getElementById('notesSection');
+
+        const previewFront = document.getElementById('preview-front');
+        const overlayFront = document.getElementById('overlay-front');
+        const previewBack = document.getElementById('preview-back');
+        const previewSeedName = document.getElementById('previewSeedName');
+        const previewDate = document.getElementById('previewDate');
+        const previewNotes = document.getElementById('previewNotes');
+
+        // Update character counter for notes
+        function updateNotesCounter() {
+            const remaining = 200 - notesInput.value.length;
+            notesCounter.textContent = `${remaining} characters remaining`;
+            if (remaining < 0) {
+                notesCounter.style.color = 'red';
+            } else {
+                notesCounter.style.color = 'inherit';
+            }
+        }
+
+        // Update preview on input/change
+        function updatePreview() {
+            previewSeedName.textContent = seedNameInput.value || 'Seed Name';
+            previewDate.textContent = dateInput.value ? new Date(dateInput.value).toLocaleDateString() : '@DateTime.Now.ToShortDateString()';
+            previewNotes.textContent = notesInput.value || '';
+
+            // Show or hide the notes section based on content
+            if (notesInput.value.trim() !== '') {
+                notesSection.style.display = 'block';
+            } else {
+                notesSection.style.display = 'none';
+            }
+
+            // Handle background image selection (front panel only)
+            const selectedBackground = document.querySelector('input[name="SeedPacket.BackgroundImage"]:checked').value;
+            if (selectedBackground) {
+                previewFront.style.backgroundImage = `url('/images/${selectedBackground}')`;
+                overlayFront.style.display = 'block'; // Show overlay when a background is selected
+            } else {
+                previewFront.style.backgroundImage = 'none';
+                overlayFront.style.display = 'none'; // Hide overlay when no background is selected
+            }
+            // Ensure back panel has no background
+            previewBack.style.backgroundImage = 'none';
+
+            // Update thumbnail borders (skip "None" option)
+            backgroundImageInputs.forEach(input => {
+                const img = input.nextElementSibling.querySelector('img');
+                if (img) { // Check if img exists (skips "None" option)
+                    img.style.border = input.checked ? '2px solid #000' : '2px solid #ccc';
+                }
+            });
+
+            // Update notes counter
+            updateNotesCounter();
+        }
+
+        // Attach event listeners
+        seedNameInput.addEventListener('input', updatePreview);
+        dateInput.addEventListener('change', updatePreview);
+        backgroundImageInputs.forEach(input => input.addEventListener('change', updatePreview));
+        notesInput.addEventListener('input', updatePreview);
+
+        // Initial update
+        updatePreview();
+    </script>
+}

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\github\\SeedPacket\\SeedPacketGenerator\\SeedPacketGenerator.csproj": {}
+    "C:\\github\\SeedPacket\\SeedPacketGenerator.csproj": {}
   },
   "projects": {
-    "C:\\github\\SeedPacket\\SeedPacketGenerator\\SeedPacketGenerator.csproj": {
+    "C:\\github\\SeedPacket\\SeedPacketGenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\github\\SeedPacket\\SeedPacketGenerator\\SeedPacketGenerator.csproj",
+        "projectUniqueName": "C:\\github\\SeedPacket\\SeedPacketGenerator.csproj",
         "projectName": "SeedPacketGenerator",
-        "projectPath": "C:\\github\\SeedPacket\\SeedPacketGenerator\\SeedPacketGenerator.csproj",
+        "projectPath": "C:\\github\\SeedPacket\\SeedPacketGenerator.csproj",
         "packagesPath": "C:\\Users\\egreene\\.nuget\\packages\\",
-        "outputPath": "C:\\github\\SeedPacket\\SeedPacketGenerator\\obj\\",
+        "outputPath": "C:\\github\\SeedPacket\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BXvlC9NW098=",
+  "dgSpecHash": "q0uTdItkdwQ=",
   "success": true,
-  "projectFilePath": "C:\\github\\SeedPacket\\SeedPacketGenerator\\SeedPacketGenerator.csproj",
+  "projectFilePath": "C:\\github\\SeedPacket\\SeedPacketGenerator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\egreene\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
     "C:\\Users\\egreene\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",

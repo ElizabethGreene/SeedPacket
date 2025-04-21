@@ -6,9 +6,9 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_NAME: SeedPacketGeneratorApp  # Replace with your App Service name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'             # Path to your app (root of the repo)
-  DOTNET_VERSION: '9.0.x'                    # .NET version your app uses
+  AZURE_WEBAPP_NAME: SeedPacketGenerator  # Replace with your App Service name
+  AZURE_WEBAPP_PACKAGE_PATH: './publish'     # Path where the deployment expects the published app
+  DOTNET_VERSION: '9.0.x'                    # Your .NET version
 
 jobs:
   build-and-deploy:
@@ -23,17 +23,22 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      # Build and publish the app
+      # Build the app
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      # Publish the app to the ./publish folder
       - name: Publish with dotnet
-        run: dotnet publish -c Release
-        
+        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+      # Debug: List files in the publish folder to confirm output
+      - name: List files in publish folder
+        run: ls -la ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
       # Deploy to Azure App Service
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: SeedPacketGenerator
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./publish
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
